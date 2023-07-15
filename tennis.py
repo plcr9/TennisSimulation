@@ -25,6 +25,10 @@ class Unit:
       self.players[1]: 0,
     }
     self.winner = None
+    self.ranking_ratio = self.players[0].ranking_points / {
+      self.players[0].ranking_points
+      + self.players[1].ranking_points
+      )
 
   def get_winner(self):
     return self.score
@@ -102,7 +106,9 @@ class Set(Unit):
       )
     while game.is_running():
       if self.match.simulated:
-        point_winner_idx = random.randint(0, 1)
+        point_winner_idx = random.randint(
+          random.randon() > self.ranking_ratio
+        )
       else:
         point_winner_idx = (
           int(input("\nPoint Winner (1 or 2) -> ")) - 1
