@@ -14,24 +14,24 @@ class Player:
   def __repr__(self):
     return (
       f"Player(name='{self.name}', "
-      f"ranking_points={self.ranking_points))"
+      f"ranking_points={self.ranking_points}"
     )
 
 class Unit:
   def __init__(self, players=(Player(), Player())):
-    self.players - players
+    self.players = players
     self.score = {
       self.players[0]: 0,
       self.players[1]: 0,
     }
     self.winner = None
-    self.ranking_ratio = self.players[0].ranking_points / {
-      self.players[0].ranking_points
+    self.ranking_ratio = self.players[0].ranking_points / (
+    self.players[0].ranking_points
       + self.players[1].ranking_points
-      )
+    )
 
   def get_winner(self):
-    return self.score
+    return self.winner
 
   def get_score(self):
     return self.score
@@ -48,7 +48,7 @@ class Match(Unit):
   ):
     super().__init__(players=(player_1, player_2))
     self.best_of_5 = best_of_5
-    self.sets_to_play - 5 if best_of_5 else 3
+    self.sets_to_play = 5 if best_of_5 else 3
     self.sets = []
     self.simulated = False
 
@@ -60,12 +60,12 @@ class Match(Unit):
     self.sets.append(set)
 
     while set.is_running():
-    set.play_game()
+      set.play_game()
     set_winner = set.get_winner()
     self.score[set_winner] += 1
 
     if self.score[set_winner] == self.sets_to_play // 2 + 1:
-      self.winner = self_winner
+      self.winner = set_winner
 
   def play_match(self):
     while self.is_running():
@@ -107,7 +107,7 @@ class Set(Unit):
     while game.is_running():
       if self.match.simulated:
         point_winner_idx = random.randint(
-          random.randon() > self.ranking_ratio
+          random.random() > self.ranking_ratio
         )
       else:
         point_winner_idx = (
@@ -142,6 +142,7 @@ class Set(Unit):
   def __str__(self):
     return "-".join(
       [str(value) for value in self.score.values()]
+    )
 
   def __repr__(self):
     return (
@@ -190,7 +191,7 @@ class Game(Unit):
 
   def __repr__(self):
     return (
-      f"{self.__class__.__name__} (set={self.set!4}, "
+      f"{self.__class__.__name__} (set={self.set!r}, "
       f"game_number={self.game_number})"
     )
 
@@ -212,4 +213,6 @@ class Tiebreak(Game):
       self.winner = player
       
       
+
+
 
