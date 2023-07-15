@@ -26,7 +26,7 @@ class Unit:
     }
     self.winner = None
     self.ranking_ratio = self.players[0].ranking_points / (
-    self.players[0].ranking_points
+      self.players[0].ranking_points
       + self.players[1].ranking_points
     )
 
