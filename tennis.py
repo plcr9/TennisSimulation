@@ -74,5 +74,65 @@ class Match(Unit):
       f"best_of_5={self.best_of_5})"
     )
 
+class Set(Unit):
+  def __init__(self, match: Match, set_number=0):
+    super().__init__(match.players)
+    self.match = match
+    self.set_number = set_number
+    self.games = []
+
+  def play_game(self, tiebreak=False):
+    if tiebreak:
+      game = Tiebreak(self, len(self.games) + 1)
+    else:
+      game = Game(self, len(self.games) + 1)
+    self.games.append(game)
+
+    print(
+      f"\nRecord point winner: "
+      f"Press 1 for {self.players[0]} | "
+      f"Press 2 for {self.players[1]}"
+    )
+    while game.is_running():
+      point_winner_idx = (
+        int(input("\nPoint Winner (1 or 2) -> ")) - 1
+      )
+      game.score_point(self.players[point_winner_idx])
+      print(game)
+
+    self.score[game.winner] += 1
+    print(f"\nGame {game.winner.name}")
+    print(f"\nCurrent score: {self.match}")
+
+    if (
+      6 not in self.score.values()
+      and 7 not in self.score.values()
+    ):
+      return
+
+    if list(self.score.values()) == [6, 6]:
+      self.play_game(tiebreak=True)
+      return
+
+    for player in self.players:
+      if self.score[player] == 7:
+        self.winner = player
+        return
+
+      if self.score[player] == 6:
+        if 5 not in self.score.values():
+          self.winner = player
+
+  def __str__(self):
+    return "-".join(
+      [str(value) for value in self.score.values()]
+
+  def __repr__(self):
+    return (
+      f"Set(match={self.match!r}, "
+      f"set_number={self.set_number})"
+    )
+
+
 
 
