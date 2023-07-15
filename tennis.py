@@ -106,7 +106,7 @@ class Set(Unit):
       )
     while game.is_running():
       if self.match.simulated:
-        point_winner_idx = random.randint(
+        point_winner_idx = int(
           random.random() > self.ranking_ratio
         )
       else:
