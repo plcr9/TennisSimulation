@@ -14,11 +14,10 @@ for _ in range(n_simulations):
   match.suppress_output()
   match.play_match()
 
-  print(match, match.winner)
+  print(match,",", "Winner:", match.winner)
 
   winners[match.winner] += 1
   n_sets[len(match.sets)] += 1
 
 print(winners)
 print(n_sets)
-
