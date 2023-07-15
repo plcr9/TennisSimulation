@@ -119,11 +119,13 @@ class Set(Unit):
           int(input("\nPoint Winner (1 or 2) -> ")) - 1
         )
       game.score_point(self.players[point_winner_idx])
-      print(game)
+      if self.match.display_results:
+        print(game)
 
     self.score[game.winner] += 1
-    print(f"\nGame {game.winner.name}")
-    print(f"\nCurrent score: {self.match}")
+    if self.match.display_results:
+      print(f"\nGame {game.winner.name}")
+      print(f"\nCurrent score: {self.match}")
 
     if (
       6 not in self.score.values()
