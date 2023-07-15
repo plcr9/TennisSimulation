@@ -133,6 +133,50 @@ class Set(Unit):
       f"set_number={self.set_number})"
     )
 
+class Game(Unit):
+  points = 0, 15, 30, 40, "Ad"
+
+  def __init__(self, set: Set, game_number=0):
+    super().__init__(set.match.players)
+    self.set = set
+    self.game_number = game_number
+
+  def score_point(self, player: Player):
+    if self.winner:
+      print(
+        "Error: You tried to add a point to a completed game"
+      )
+      return
+    game_won = False
+    current_point = self.score[player]
+    if self.score[player] == 40:
+      if "Ad" in self.score.values():
+        for each_player in self.players:
+          self.score[each_player] = 40
+      elif list(self.score.values()) == [40, 40]:
+        self.score[player] = "Ad"
+      else:
+        game_won = True
+    elif self.score[player] == "Ad":
+      game_won = True
+    else:
+      self.score[player] = Game.points[
+        Game.points.index(current_point) + 1
+      ]
+
+    if game_won:
+      self.score[player] = "Game"
+      self.winner = player
+
+  def __str__(self):
+    score_values = list(self.score.values())
+    return f"{score_values[0]} - {score_values[1]}"
+
+  def __repr__(self):
+    return (
+      f"{self.__class__.__name__} (set={self.set!4}, "
+      f"game_number={self.game_number})"
+    )
 
 
 
