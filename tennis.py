@@ -51,9 +51,13 @@ class Match(Unit):
     self.sets_to_play = 5 if best_of_5 else 3
     self.sets = []
     self.simulated = False
+    self.display_results = True
 
   def simulate_match(self):
     self.simulated = True
+
+  def suppress_output(self):
+    self.display_results = False
 
   def play_set(self):
     set = Set(self, len(self.sets) + 1)
@@ -70,8 +74,9 @@ class Match(Unit):
   def play_match(self):
     while self.is_running():
       self.play_set()
-    print(f"\nWinner: {self.winner}")
-    print(f"Score: {self}")
+    if self.display_results:
+      print(f"\nWinner: {self.winner}")
+      print(f"Score: {self}")
 
   def __str__(self):
     return " ".join([str(set) for set in self.sets])
