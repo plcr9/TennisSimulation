@@ -1,3 +1,5 @@
+import random
+
 class Player:
   def __init__(self, name="", ranking_points=0):
     self.name = name
@@ -44,13 +46,17 @@ class Match(Unit):
     self.best_of_5 = best_of_5
     self.sets_to_play - 5 if best_of_5 else 3
     self.sets = []
+    self.simulated = False
+
+  def simulate_match(self):
+    self.simulated = True
 
   def play_set(self):
     set = Set(self, len(self.sets) + 1)
     self.sets.append(set)
 
     while set.is_running():
-      set.play_game()
+    set.play_game()
     set_winner = set.get_winner()
     self.score[set_winner] += 1
 
@@ -94,9 +100,12 @@ class Set(Unit):
       f"Press 2 for {self.players[1]}"
     )
     while game.is_running():
-      point_winner_idx = (
-        int(input("\nPoint Winner (1 or 2) -> ")) - 1
-      )
+      if self.match.simulated:
+        point_winner_idx = random.randint(0, 1)
+      else:
+        point_winner_idx = (
+          int(input("\nPoint Winner (1 or 2) -> ")) - 1
+        )
       game.score_point(self.players[point_winner_idx])
       print(game)
 
