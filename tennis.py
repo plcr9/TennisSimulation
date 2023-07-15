@@ -94,11 +94,12 @@ class Set(Unit):
       game = Game(self, len(self.games) + 1)
     self.games.append(game)
 
-    print(
-      f"\nRecord point winner: "
-      f"Press 1 for {self.players[0]} | "
-      f"Press 2 for {self.players[1]}"
-    )
+    if not self.match.simulated:
+      print(
+        f"\nRecord point winner: "
+        f"Press 1 for {self.players[0]} | "
+        f"Press 2 for {self.players[1]}"
+      )
     while game.is_running():
       if self.match.simulated:
         point_winner_idx = random.randint(0, 1)
