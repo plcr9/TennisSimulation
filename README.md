@@ -7,3 +7,12 @@ The outcome of 100 matches between the two players is simulated at random. The s
 The next feature takes into account the ranking points of the two players contesting the match. If the match is simulated with one player holding more ranking points than the other, the percentage chance of the player with the higher number of ranking points winning is increased. If both players enter the match with the same number of ranking points, there is an equal chance of either player emerging triumphant.
 
 The final feature uses the matplotlib module to graphically plot the probability of Player1 winning the match (in one graph) and the probability of Player1 winning the match in 3 sets (straight sets) (in the other graph).
+
+# How the app was built
+The app was built using Python 3.10.
+
+# To Run
+Clone the repo: git clone https://github.com/plcr9/TennisSimulation.git
+
+# Start Tennis app
+To play the TennisSimulation run python3 play_tennis.py in the terminal. This will automatically generate 100 match outcomes between the two players, together with the match score over 3, 4 or 5 sets.
